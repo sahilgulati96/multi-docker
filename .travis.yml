@@ -1,0 +1,26 @@
+sudo: required
+services:
+    - docker
+
+#Build test version of React Server
+before_install:
+    - docker build - t sahilgulati102/react-test -f ./client/dockerfile.dev ./client
+
+#Test React Server
+script:
+    - docker run sahilgulati102/react-test npm test -- --coverage
+
+#Build Prod Images    
+after_success:
+    - docker build -t sahilgulati102/multi-client ./client
+    - docker build -t sahilgulati102/multi-nginx ./nginx
+    - docker build -t sahilgulati102/multi-server ./server
+    - docker build -t sahilgulati102/multi-worker ./worker
+    #Login to dockerHub
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # Take images to docker hub
+    - docker push sahilgulati102/multi-client
+    - docker push sahilgulati102/multi-server
+    - docker push sahilgulati102/multi-nginx
+    - docker push sahilgulati102/multi-worker
+
