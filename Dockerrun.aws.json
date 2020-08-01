@@ -23,9 +23,9 @@
             "memory": 128
         },
         {
-            "name": "ngnix",
-            "image": "sahilgulati102/multi-ngnix",
-            "hostname": "ngnix",
+            "name": "nginx",
+            "image": "sahilgulati102/multi-nginx",
+            "hostname": "nginx",
             "essential": true,
             "portMappings": [
                 {
