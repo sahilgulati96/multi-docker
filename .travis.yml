@@ -23,4 +23,14 @@ after_success:
     - docker push sahilgulati102/multi-server
     - docker push sahilgulati102/multi-nginx
     - docker push sahilgulati102/multi-worker
-
+deploy:
+    provider: elasticbeanstalk
+    region: us-east-1
+    app: multi-docker
+    env: MultiDocker-env
+    bucket_name: elasticbeanstalk-us-east-1-949017487832
+    bucket_path: docker-multi
+    on:
+        branch: master
+    access_key_id: $acc
+    secret_access_key: $cli
