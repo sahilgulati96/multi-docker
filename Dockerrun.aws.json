@@ -1,0 +1,38 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "sahilgulati102/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "sahilgulati102/multi-server",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "sahilgulati102/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+            "name": "ngnix",
+            "image": "sahilgulati102/multi-ngnix",
+            "hostname": "ngnix",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "client", "server"
+            ]
+        }
+    ]
+}
